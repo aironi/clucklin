@@ -7,8 +7,13 @@ import org.springframework.data.mongodb.core.mapping.Document
  * @author <a href="mailto:iiro.hietala@gofore.com">Iiro Hietala</a>
  */
 @Document
-data class Cluckling(@Id val id: Long,
+data class Cluckling(@Id val id: String,
                      val name: String,
-                     val age: Int,
+                     var age: Int,
                      val gender: Gender,
-                     val breed: Breed)
+                     val breed: Breed,
+                     var position: Position,
+                     var direction: Int,
+                     var lifeCycleState: LifeCycleState) {
+
+}

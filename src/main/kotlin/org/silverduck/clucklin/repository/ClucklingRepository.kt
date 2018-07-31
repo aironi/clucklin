@@ -8,4 +8,4 @@ import org.springframework.stereotype.Repository
  * @author <a href="mailto:iiro.hietala@gofore.com">Iiro Hietala</a>
  */
 @Repository
-interface ClucklingRepository : ReactiveCrudRepository<Cluckling, Long>
+interface ClucklingRepository : ReactiveCrudRepository<Cluckling, String>
