@@ -1,0 +1,154 @@
+{
+	"info": {
+		"_postman_id": "1120fdca-638f-46b7-9197-986c042f9278",
+		"name": "Clucklin",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "List Clucklings",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Male Cluckling",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\n        \"id\": 3,\n        \"name\": \"Sammy Gonzales\",\n        \"age\": 13,\n        \"gender\": \"MALE\",\n        \"breed\": {\n            \"name\": \"Stylis Rider\"\n        },\n        \"position\": {\n            \"x\": 5,\n            \"y\": 4\n        },\n        \"direction\": 0,\n        \"lifeCycleState\": \"ADULT\"\n    }"
+				},
+				"url": {
+					"raw": "localhost:8080/clucklings",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"clucklings"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Male Cluckling 2",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\n        \"id\": 3,\n        \"name\": \"Sammy Gonzales\",\n        \"age\": 13,\n        \"gender\": \"MALE\",\n        \"breed\": {\n            \"name\": \"Stylis Rider\"\n        },\n        \"position\": {\n            \"x\": 5,\n            \"y\": 4\n        },\n        \"direction\": 0,\n        \"lifeCycleState\": \"ADULT\"\n    }"
+				},
+				"url": {
+					"raw": "localhost:8080/clucklings",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"clucklings"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Female Cluckling",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " {\n        \"id\": 3,\n        \"name\": \"Sammy Gonzales\",\n        \"age\": 15,\n        \"gender\": \"MALE\",\n        \"breed\": {\n            \"name\": \"Stylish Rider\"\n        }\n        \"position\": {\n        \tx: 3\n        \ty: 3\n        },\n        \"direction\" : 0,\n        \"lifeCycleState: \"ADULT\"\n    }"
+				},
+				"url": {
+					"raw": "localhost:8080/clucklings",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"clucklings"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Female Cluckling 2",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " {\n        \"id\": 3,\n        \"name\": \"Sammy Gonzales\",\n        \"age\": 15,\n        \"gender\": \"MALE\",\n        \"breed\": {\n            \"name\": \"Stylish Rider\"\n        }\n        \"position\": {\n        \tx: 3\n        \ty: 3\n        },\n        \"direction\" : 0,\n        \"lifeCycleState: \"ADULT\"\n    }"
+				},
+				"url": {
+					"raw": "localhost:8080/clucklings",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"clucklings"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Cluckling",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "localhost:8080/clucklings?id=2",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"clucklings"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
