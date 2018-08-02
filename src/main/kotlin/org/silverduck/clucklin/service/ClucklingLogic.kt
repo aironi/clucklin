@@ -29,14 +29,14 @@ class ClucklingLogic(val clucklingService: ClucklingService) {
         clucklingService.list()
                 .map {
                     if (it.matingCooldownTurns > 0) {
-                        return@map it.copy(matingCooldownTurns = it.matingCooldownTurns - 1)
+                        it.copy(matingCooldownTurns = it.matingCooldownTurns - 1)
                     } else {
-                        return@map it;
+                        it;
                     }
                 }
-                .map { return@map ageCluckling(it) }
-                .map { return@map moveCluckling(it) }
-                .map { return@map applyMating(it) }
+                .map { ageCluckling(it) }
+                .map { moveCluckling(it) }
+                .map { applyMating(it) }
                 .subscribe({ cluckling -> clucklingService.saveCluckling(cluckling.toMono()).subscribe() },
                         {error -> LOG.warning("Got error: ${error}")})
     }
@@ -91,7 +91,7 @@ class ClucklingLogic(val clucklingService: ClucklingService) {
                 .filter { it.matingCooldownTurns == 0 && it.gender != cluckling.gender && cluckling.lifeCycleState == ADULT && it.lifeCycleState == ADULT }
                 .filter { Random().nextInt(100) < MATING_CHANCE }
                 .take(1)
-                .map { companion -> return@map mate(cluckling, companion) }
+                .map { companion -> mate(cluckling, companion) }
                 .single(cluckling)
 
     }
