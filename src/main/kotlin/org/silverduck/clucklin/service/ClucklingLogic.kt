@@ -4,6 +4,7 @@ import org.silverduck.clucklin.data.*
 import org.silverduck.clucklin.data.LifeCycleState.*
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component
+import reactor.core.publisher.Mono
 import reactor.core.publisher.toMono
 import java.util.*
 import java.util.logging.Logger
@@ -35,16 +36,17 @@ class ClucklingLogic(val clucklingService: ClucklingService) {
                 }
                 .map { return@map ageCluckling(it) }
                 .map { return@map moveCluckling(it) }
-                    //this::applyMating
+                .map { return@map applyMating(it) }
                 .subscribe({ cluckling -> clucklingService.saveCluckling(cluckling.toMono()).subscribe() },
                         {error -> LOG.warning("Got error: ${error}")})
     }
 
     private fun ageCluckling(cluckling: Cluckling): Cluckling {
-        LOG.info("Aging cluckling ${cluckling.name}")
         if (cluckling.lifeCycleState == CORPSE) {
             return cluckling;
         }
+
+        LOG.info("Aging cluckling ${cluckling.name}")
 
         var age : Int;
         var lifeCycleState : LifeCycleState;
@@ -84,14 +86,14 @@ class ClucklingLogic(val clucklingService: ClucklingService) {
         return Position(newX, newY)
     }
 
-    private fun applyMating(cluckling: Cluckling): Cluckling {
-        var companion = clucklingService.findNearbyClucklings(cluckling)
+    private fun applyMating(cluckling: Cluckling): Mono<Cluckling> {
+        return clucklingService.findNearbyClucklings(cluckling)
                 .filter { it.matingCooldownTurns == 0 && it.gender != cluckling.gender && cluckling.lifeCycleState == ADULT && it.lifeCycleState == ADULT }
                 .filter { Random().nextInt(100) < MATING_CHANCE }
                 .take(1)
-                .map { companion -> mate(cluckling, companion) }
-                .subscribe()
-        return cluckling
+                .map { companion -> return@map mate(cluckling, companion) }
+                .single(cluckling)
+
     }
 
     private fun mate(cluckling: Cluckling, companion: Cluckling): Cluckling {

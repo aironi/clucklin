@@ -29,7 +29,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "    {\n        \"id\": 3,\n        \"name\": \"Sammy Gonzales\",\n        \"age\": 13,\n        \"gender\": \"MALE\",\n        \"breed\": {\n            \"name\": \"Stylis Rider\"\n        },\n        \"position\": {\n            \"x\": 5,\n            \"y\": 4\n        },\n        \"direction\": 0,\n        \"lifeCycleState\": \"ADULT\"\n    }"
+					"raw": "    {\n        \"id\": 3,\n        \"name\": \"Sammy Gonzales\",\n        \"age\": 13,\n        \"gender\": \"MALE\",\n        \"breed\": {\n            \"name\": \"Stylish Rider\"\n        },\n        \"position\": {\n            \"x\": 5,\n            \"y\": 4\n        },\n        \"direction\": 0,\n        \"lifeCycleState\": \"ADULT\"\n    }"
 				},
 				"url": {
 					"raw": "localhost:8080/clucklings",
@@ -56,7 +56,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "    {\n        \"id\": 3,\n        \"name\": \"Sammy Gonzales\",\n        \"age\": 13,\n        \"gender\": \"MALE\",\n        \"breed\": {\n            \"name\": \"Stylis Rider\"\n        },\n        \"position\": {\n            \"x\": 5,\n            \"y\": 4\n        },\n        \"direction\": 0,\n        \"lifeCycleState\": \"ADULT\"\n    }"
+					"raw": "    {\n        \"id\": 3,\n        \"name\": \"Sammy Gonzales\",\n        \"age\": 13,\n        \"gender\": \"MALE\",\n        \"breed\": {\n            \"name\": \"Stylish Rider\"\n        },\n        \"position\": {\n            \"x\": 5,\n            \"y\": 4\n        },\n        \"direction\": 0,\n        \"lifeCycleState\": \"ADULT\"\n    }"
 				},
 				"url": {
 					"raw": "localhost:8080/clucklings",
