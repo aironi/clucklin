@@ -9,11 +9,12 @@ import org.springframework.data.mongodb.core.mapping.Document
 @Document
 data class Cluckling(@Id val id: String,
                      val name: String,
-                     var age: Int,
+                     val age: Int,
                      val gender: Gender,
                      val breed: Breed,
-                     var position: Position,
-                     var direction: Int,
-                     var lifeCycleState: LifeCycleState) {
+                     val position: Position,
+                     val direction: Int,
+                     val lifeCycleState: LifeCycleState,
+                     val matingCooldownTurns: Int) {
 
 }

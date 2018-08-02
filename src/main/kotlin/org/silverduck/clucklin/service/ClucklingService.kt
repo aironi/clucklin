@@ -21,13 +21,16 @@ class ClucklingService(val clucklingRepository: ClucklingRepository) {
 
     fun list(): Flux<Cluckling> = clucklingRepository.findAll();
 
-
     fun findNearbyClucklings(cluckling: Cluckling): Flux<Cluckling> {
         return clucklingRepository.findAll().filter {
             abs(cluckling.position.x - it.position.x) < 2 &&
             abs(cluckling.position.y - it.position.y) < 2
         }.toFlux();
 
+    }
+
+    fun saveAll(flux : Flux<Cluckling>): Flux<Cluckling> {
+        return clucklingRepository.saveAll(flux)
     }
 
 }
