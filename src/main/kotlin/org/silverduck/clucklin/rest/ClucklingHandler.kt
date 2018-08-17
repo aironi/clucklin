@@ -17,8 +17,8 @@ import java.util.stream.Stream
 class ClucklingHandler(val clucklingService: ClucklingService) {
 
     fun sayCluck(request: ServerRequest): Mono<ServerResponse> {
-        val clucks = Flux.fromStream<String>(Stream.generate({ "Cluck cluck" }))
         val interval = Flux.interval(Duration.ofSeconds(1))
+        val clucks = Flux.fromStream<String>(Stream.generate({ "Cluck cluck" }))
         return ok().bodyToServerSentEvents(Flux.zip(interval, clucks).map({ it.t2 }))
     }
 

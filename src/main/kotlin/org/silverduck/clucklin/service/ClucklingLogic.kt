@@ -23,22 +23,25 @@ class ClucklingLogic(val clucklingService: ClucklingService) {
 
     val STANDARD_DISTANCE = 1 // The standard distance that the Clucklins will move per turn
     val MATING_CHANCE = 10 // The chance that two clucklings will mate when they are nearby each other
+    val DYING_CHANCE = 10;
 
     @Scheduled(fixedRate = 5000)
     fun logic() {
         clucklingService.list()
-                .map {
-                    if (it.matingCooldownTurns > 0) {
-                        it.copy(matingCooldownTurns = it.matingCooldownTurns - 1)
-                    } else {
-                        it;
-                    }
-                }
+                .map { applyMatingCooldown(it) }
                 .map { ageCluckling(it) }
                 .map { moveCluckling(it) }
                 .map { applyMating(it) }
                 .subscribe({ cluckling -> clucklingService.saveCluckling(cluckling.toMono()).subscribe() },
                         {error -> LOG.warning("Got error: ${error}")})
+    }
+
+    private fun applyMatingCooldown(it: Cluckling): Cluckling {
+        return if (it.matingCooldownTurns > 0) {
+            it.copy(matingCooldownTurns = it.matingCooldownTurns - 1)
+        } else {
+            it;
+        }
     }
 
     private fun ageCluckling(cluckling: Cluckling): Cluckling {
@@ -53,7 +56,7 @@ class ClucklingLogic(val clucklingService: ClucklingService) {
 
         age = cluckling.age + 1;
 
-        if (cluckling.age > 30 && Random().nextInt(100) > 25) {
+        if (cluckling.age > 30 && Random().nextInt(100) > DYING_CHANCE) {
             lifeCycleState = CORPSE
         } else if (cluckling.age > 10) {
             lifeCycleState = ADULT
@@ -71,7 +74,7 @@ class ClucklingLogic(val clucklingService: ClucklingService) {
         if (Stream.of(LifeCycleState.YOUNGSTER, ADULT)
                         .anyMatch { it == cluckling.lifeCycleState }) {
             LOG.info("Moving cluckling ${cluckling.name} from ${cluckling.position}")
-            var direction = Random().nextInt(365)
+            var direction = Random().nextInt(360)
             var position = newPosition(cluckling.position, cluckling.direction)
             LOG.info("New position for ${cluckling.name} is ${cluckling.position}")
             return cluckling.copy(direction = direction, position = position)
@@ -93,7 +96,6 @@ class ClucklingLogic(val clucklingService: ClucklingService) {
                 .take(1)
                 .map { companion -> mate(cluckling, companion) }
                 .single(cluckling)
-
     }
 
     private fun mate(cluckling: Cluckling, companion: Cluckling): Cluckling {
@@ -104,7 +106,7 @@ class ClucklingLogic(val clucklingService: ClucklingService) {
                 0,
                 Gender.values().get(Random().nextInt(Gender.values().size)),
                 Breed(newNameFrom(cluckling.breed.name, companion.breed.name)),
-                cluckling.position,
+                if (cluckling.gender == Gender.FEMALE) cluckling.position else companion.position,
                 0,
                 EGG,
                 0)
@@ -115,7 +117,6 @@ class ClucklingLogic(val clucklingService: ClucklingService) {
         return cluckling.copy(matingCooldownTurns = 10)
     }
 }
-
 
 fun newNameFrom(name1: String, name2: String): String {
     val nameParts1 = name1.split(" ")
